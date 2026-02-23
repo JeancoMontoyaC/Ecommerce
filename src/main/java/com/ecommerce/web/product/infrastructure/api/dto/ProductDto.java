@@ -28,4 +28,5 @@ public class ProductDto {
     @DecimalMax(value = "90.0", inclusive = false)
     private Double discountPercentage;
     private Integer stock;
+    private String category;
 }

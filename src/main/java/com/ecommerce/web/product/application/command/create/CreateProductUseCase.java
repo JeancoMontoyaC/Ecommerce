@@ -20,6 +20,7 @@ public class CreateProductUseCase {
                 .shortDescription(request.getShortDescription())
                 .discountPercentage(request.getDiscountPercentage())
                 .stock(request.getStock())
+                .category(request.getCategory())
                 .build();
 
         productRepository.save(product);

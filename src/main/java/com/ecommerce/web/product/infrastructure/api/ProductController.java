@@ -7,6 +7,7 @@ import com.ecommerce.web.product.application.query.getByName.GetProductsByNameUs
 import com.ecommerce.web.product.application.query.getByMinPrice.GetProductsByMinPriceUseCase;
 import com.ecommerce.web.product.application.query.getByMaxPrice.GetProductsByMaxPriceUseCase;
 import com.ecommerce.web.product.application.query.getByPriceRange.GetProductsByPriceRangeUseCase;
+import com.ecommerce.web.product.application.query.getByCategory.GetProductsByCategoryUseCase;
 import com.ecommerce.web.product.application.query.partialUpdate.UpdateProductUseCase;
 import com.ecommerce.web.product.infrastructure.api.dto.ProductDto;
 import com.ecommerce.web.product.infrastructure.database.mapper.ProductMapper;
@@ -29,6 +30,7 @@ public class ProductController implements ProductApi {
     private final GetProductsByMinPriceUseCase getProductsByMinPriceUseCase;
     private final GetProductsByMaxPriceUseCase getProductsByMaxPriceUseCase;
     private final GetProductsByPriceRangeUseCase getProductsByPriceRangeUseCase;
+    private final GetProductsByCategoryUseCase getProductsByCategoryUseCase;
     private final UpdateProductUseCase updateProductUseCase;
     private final ProductMapper productMapper;
 
@@ -113,6 +115,17 @@ public class ProductController implements ProductApi {
     public ResponseEntity<List<ProductDto>> getProductsByPriceRange(@PathVariable Double minPrice, @PathVariable Double maxPrice) {
         var request = productMapper.toGetProductsByPriceRangeRequest(minPrice, maxPrice);
         var response = getProductsByPriceRangeUseCase.execute(request);
+        var productDtos = response.getProducts().stream()
+                .map(productMapper::mapToProductDto)
+                .toList();
+
+        return ResponseEntity.ok(productDtos);
+    }
+
+    @GetMapping("/filter/category/{category}")
+    public ResponseEntity<List<ProductDto>> getProductsByCategory(@PathVariable String category) {
+        var request = productMapper.toGetProductsByCategoryRequest(category);
+        var response = getProductsByCategoryUseCase.execute(request);
         var productDtos = response.getProducts().stream()
                 .map(productMapper::mapToProductDto)
                 .toList();

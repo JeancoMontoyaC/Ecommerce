@@ -40,4 +40,7 @@ public class ProductEntity {
 
     @Column
     private Integer stock;
+
+    @Column
+    private String category;
 }

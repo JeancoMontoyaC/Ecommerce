@@ -14,4 +14,5 @@ public class CreateProductRequest {
     private String imageUrl;
     private Boolean available;
     private Integer stock;
+    private String category;
 }

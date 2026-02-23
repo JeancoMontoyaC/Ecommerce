@@ -13,4 +13,5 @@ public interface SpringDataProductRepository extends JpaRepository<ProductEntity
     List<ProductEntity> findByPriceGreaterThanEqual(Double minPrice);
     List<ProductEntity> findByPriceLessThanEqual(Double maxPrice);
     List<ProductEntity> findByPriceBetween(Double minPrice, Double maxPrice);
+    List<ProductEntity> findByCategory(String category);
 }

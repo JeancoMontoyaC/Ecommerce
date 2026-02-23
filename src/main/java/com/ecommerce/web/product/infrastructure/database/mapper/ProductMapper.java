@@ -6,6 +6,7 @@ import com.ecommerce.web.product.application.query.getByName.GetProductsByNameRe
 import com.ecommerce.web.product.application.query.getByMinPrice.GetProductsByMinPriceRequest;
 import com.ecommerce.web.product.application.query.getByMaxPrice.GetProductsByMaxPriceRequest;
 import com.ecommerce.web.product.application.query.getByPriceRange.GetProductsByPriceRangeRequest;
+import com.ecommerce.web.product.application.query.getByCategory.GetProductsByCategoryRequest;
 import com.ecommerce.web.product.application.query.partialUpdate.UpdateProductRequest;
 import com.ecommerce.web.product.domain.entity.Product;
 import com.ecommerce.web.product.infrastructure.api.dto.ProductDto;
@@ -26,6 +27,7 @@ public class ProductMapper {
                 .shortDescription(productDto.getShortDescription())
                 .discountPercentage(productDto.getDiscountPercentage())
                 .stock(productDto.getStock())
+                .category(productDto.getCategory())
                 .build();
     }
 
@@ -46,6 +48,7 @@ public class ProductMapper {
                 .shortDescription(product.getShortDescription())
                 .discountPercentage(product.getDiscountPercentage())
                 .stock(product.getStock())
+                .category(product.getCategory())
                 .build();
     }
 
@@ -60,6 +63,7 @@ public class ProductMapper {
                 .imageUrl(entity.getImageUrl())
                 .available(entity.getAvailable())
                 .stock(entity.getStock())
+                .category(entity.getCategory())
                 .build();
     }
 
@@ -74,6 +78,7 @@ public class ProductMapper {
                 .imageUrl(productDto.getImageUrl())
                 .available(productDto.getAvailable())
                 .stock(productDto.getStock())
+                .category(productDto.getCategory())
                 .build();
     }
 
@@ -99,6 +104,12 @@ public class ProductMapper {
         return GetProductsByPriceRangeRequest.builder()
                 .minPrice(minPrice)
                 .maxPrice(maxPrice)
+                .build();
+    }
+
+    public GetProductsByCategoryRequest toGetProductsByCategoryRequest(String category) {
+        return GetProductsByCategoryRequest.builder()
+                .category(category)
                 .build();
     }
 

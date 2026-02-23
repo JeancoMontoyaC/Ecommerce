@@ -14,4 +14,5 @@ public interface ProductApi {
     public ResponseEntity<List<ProductDto>> getProductsByMinPrice(Double minPrice);
     public ResponseEntity<List<ProductDto>> getProductsByMaxPrice(Double maxPrice);
     public ResponseEntity<List<ProductDto>> getProductsByPriceRange(Double minPrice, Double maxPrice);
+    public ResponseEntity<List<ProductDto>> getProductsByCategory(String category);
 }

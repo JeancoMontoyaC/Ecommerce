@@ -31,6 +31,7 @@ public class ProductRepositoryImpl implements ProductRepository {
                 .discountPercentage(product.getDiscountPercentage())
                 .stock(product.getStock())
                 .imageUrl(product.getImageUrl())
+                .category(product.getCategory())
                 .build();
 
         springDataProductRepository.save(entity);
@@ -85,6 +86,14 @@ public class ProductRepositoryImpl implements ProductRepository {
     }
 
     @Override
+    public List<Product> findByCategory(String category) {
+        List<ProductEntity> entities = springDataProductRepository.findByCategory(category);
+        return entities.stream()
+                .map(productMapper::mapToProduct)
+                .toList();
+    }
+
+    @Override
     @Transactional
     public Product partialUpdate(Long id, Product productChanges) {
         ProductEntity product = springDataProductRepository.findById(id)
@@ -120,6 +129,10 @@ public class ProductRepositoryImpl implements ProductRepository {
 
         if (productChanges.getAvailable() != null) {
             product.setAvailable(productChanges.getAvailable());
+        }
+
+        if (productChanges.getCategory() != null) {
+            product.setCategory(productChanges.getCategory());
         }
 
         return productMapper.mapToProduct(product);
