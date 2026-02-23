@@ -23,12 +23,21 @@ public class ProductEntity {
     @Column(nullable = false, length = 500)
     private String description;
 
+    @Column
+    private String shortDescription;
+
     @Column(nullable = false)
     private Double price;
+
+    @Column
+    private Double discountPrice;
 
     @Column
     private String imageUrl;
 
     @Column(nullable = false)
     private boolean isAvailable;
+
+    @Column
+    private Integer stock;
 }

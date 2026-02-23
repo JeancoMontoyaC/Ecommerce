@@ -1,4 +1,4 @@
-package com.ecommerce.web.product.application.command.CreateProduct;
+package com.ecommerce.web.product.application.command.create;
 
 import com.ecommerce.web.product.domain.entity.Product;
 import com.ecommerce.web.product.domain.port.ProductRepository;
@@ -17,6 +17,9 @@ public class CreateProductUseCase {
                 .price(request.getPrice())
                 .imageUrl(request.getImageUrl())
                 .isAvailable(request.isAvailable())
+                .shortDescription(request.getShortDescription())
+                .discountPrice(request.getDiscountPrice())
+                .stock(request.getStock())
                 .build();
 
         productRepository.save(product);

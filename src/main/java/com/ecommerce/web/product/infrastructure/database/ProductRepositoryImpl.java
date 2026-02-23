@@ -7,7 +7,7 @@ import com.ecommerce.web.product.infrastructure.persistence.SpringDataProductRep
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
@@ -23,8 +23,29 @@ public class ProductRepositoryImpl implements ProductRepository {
                 .description(product.getDescription())
                 .price(product.getPrice())
                 .isAvailable(product.isAvailable())
+                .shortDescription(product.getShortDescription())
+                .discountPrice(product.getDiscountPrice())
+                .stock(product.getStock())
                 .build();
 
         springDataProductRepository.save(entity);
+    }
+
+    @Override
+    public Optional<Product> findById(Long id) {
+
+        Optional<ProductEntity> productEntity = springDataProductRepository.findById(id);
+
+        return productEntity.map(entity -> Product.builder()
+                .id(entity.getId())
+                .name(entity.getName())
+                .description(entity.getDescription())
+                .shortDescription(entity.getShortDescription())
+                .price(entity.getPrice())
+                .discountPrice(entity.getDiscountPrice())
+                .imageUrl(entity.getImageUrl())
+                .isAvailable(entity.isAvailable())
+                .stock(entity.getStock())
+                .build());
     }
 }
