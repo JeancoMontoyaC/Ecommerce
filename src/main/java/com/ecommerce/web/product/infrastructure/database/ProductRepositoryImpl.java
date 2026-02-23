@@ -7,6 +7,7 @@ import com.ecommerce.web.product.infrastructure.persistence.SpringDataProductRep
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -47,5 +48,21 @@ public class ProductRepositoryImpl implements ProductRepository {
                 .isAvailable(entity.isAvailable())
                 .stock(entity.getStock())
                 .build());
+    }
+
+    @Override
+    public List<Product> findAll() {
+        List<ProductEntity> entities = springDataProductRepository.findAll();
+        return entities.stream().map(entity -> Product.builder()
+                .id(entity.getId())
+                .name(entity.getName())
+                .description(entity.getDescription())
+                .shortDescription(entity.getShortDescription())
+                .price(entity.getPrice())
+                .discountPrice(entity.getDiscountPrice())
+                .imageUrl(entity.getImageUrl())
+                .isAvailable(entity.isAvailable())
+                .stock(entity.getStock())
+                .build()).toList();
     }
 }

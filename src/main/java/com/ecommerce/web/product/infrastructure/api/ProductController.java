@@ -1,6 +1,7 @@
 package com.ecommerce.web.product.infrastructure.api;
 
 import com.ecommerce.web.product.application.command.create.CreateProductUseCase;
+import com.ecommerce.web.product.application.query.getAll.GetAllProductsUseCase;
 import com.ecommerce.web.product.application.query.getById.GetProductByIdUseCase;
 import com.ecommerce.web.product.infrastructure.api.dto.ProductDto;
 import com.ecommerce.web.product.infrastructure.database.mapper.ProductMapper;
@@ -9,7 +10,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/products")
@@ -18,6 +19,7 @@ public class ProductController implements ProductApi {
 
     private final CreateProductUseCase createProductUseCase;
     private final GetProductByIdUseCase getProductByIdUseCase;
+    private final GetAllProductsUseCase getAllProductsUseCase;
     private final ProductMapper productMapper;
 
     @PostMapping("/create")
@@ -40,4 +42,13 @@ public class ProductController implements ProductApi {
                 : ResponseEntity.notFound().build();
     }
 
+    @GetMapping("/all")
+    public ResponseEntity<List<ProductDto>> getAllProducts() {
+        var products = getAllProductsUseCase.execute().getProducts();
+        var productDtos = products.stream()
+                .map(productMapper::mapToProductDto)
+                .toList();
+
+        return ResponseEntity.ok(productDtos);
+    }
 }

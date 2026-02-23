@@ -3,6 +3,10 @@ package com.ecommerce.web.product.infrastructure.api;
 import com.ecommerce.web.product.infrastructure.api.dto.ProductDto;
 import org.springframework.http.ResponseEntity;
 
+import java.util.List;
+
 public interface ProductApi {
     public ResponseEntity<Void> createProduct(ProductDto productDto);
+    public ResponseEntity<ProductDto> getProductById(Long id);
+    public ResponseEntity<List<ProductDto>> getAllProducts();
 }
