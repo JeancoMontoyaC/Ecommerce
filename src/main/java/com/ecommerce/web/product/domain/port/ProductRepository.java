@@ -9,5 +9,5 @@ public interface ProductRepository {
     void save(Product product);
     Optional<Product> findById(Long id);
     List<Product> findAll();
-
+    List<Product> findByName(String name);
 }

@@ -3,6 +3,7 @@ package com.ecommerce.web.product.infrastructure.database;
 import com.ecommerce.web.product.domain.entity.Product;
 import com.ecommerce.web.product.domain.port.ProductRepository;
 import com.ecommerce.web.product.infrastructure.database.entity.ProductEntity;
+import com.ecommerce.web.product.infrastructure.database.mapper.ProductMapper;
 import com.ecommerce.web.product.infrastructure.persistence.SpringDataProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -15,6 +16,7 @@ import java.util.Optional;
 public class ProductRepositoryImpl implements ProductRepository {
 
     private final SpringDataProductRepository springDataProductRepository;
+    private final ProductMapper productMapper;
 
     @Override
     public void save(Product product) {
@@ -37,32 +39,22 @@ public class ProductRepositoryImpl implements ProductRepository {
 
         Optional<ProductEntity> productEntity = springDataProductRepository.findById(id);
 
-        return productEntity.map(entity -> Product.builder()
-                .id(entity.getId())
-                .name(entity.getName())
-                .description(entity.getDescription())
-                .shortDescription(entity.getShortDescription())
-                .price(entity.getPrice())
-                .discountPrice(entity.getDiscountPrice())
-                .imageUrl(entity.getImageUrl())
-                .isAvailable(entity.isAvailable())
-                .stock(entity.getStock())
-                .build());
+        return productEntity.map(productMapper::mapToProduct);
     }
 
     @Override
     public List<Product> findAll() {
         List<ProductEntity> entities = springDataProductRepository.findAll();
-        return entities.stream().map(entity -> Product.builder()
-                .id(entity.getId())
-                .name(entity.getName())
-                .description(entity.getDescription())
-                .shortDescription(entity.getShortDescription())
-                .price(entity.getPrice())
-                .discountPrice(entity.getDiscountPrice())
-                .imageUrl(entity.getImageUrl())
-                .isAvailable(entity.isAvailable())
-                .stock(entity.getStock())
-                .build()).toList();
+        return entities.stream()
+                .map(productMapper::mapToProduct)
+                .toList();
+    }
+
+    @Override
+    public List<Product> findByName(String name) {
+        List<ProductEntity> entities = springDataProductRepository.findByNameContaining(name);
+        return entities.stream()
+                .map(productMapper::mapToProduct)
+                .toList();
     }
 }

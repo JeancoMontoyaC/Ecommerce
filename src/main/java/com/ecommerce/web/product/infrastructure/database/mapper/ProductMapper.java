@@ -2,8 +2,11 @@ package com.ecommerce.web.product.infrastructure.database.mapper;
 
 import com.ecommerce.web.product.application.command.create.CreateProductRequest;
 import com.ecommerce.web.product.application.query.getById.GetProductByIdRequest;
+import com.ecommerce.web.product.application.query.getByName.GetProductsByNameRequest;
+import com.ecommerce.web.product.application.query.getByName.GetProductsByNameResponse;
 import com.ecommerce.web.product.domain.entity.Product;
 import com.ecommerce.web.product.infrastructure.api.dto.ProductDto;
+import com.ecommerce.web.product.infrastructure.database.entity.ProductEntity;
 
 import org.springframework.stereotype.Component;
 
@@ -42,4 +45,24 @@ public class ProductMapper {
                 .stock(product.getStock())
                 .build();
     };
+
+    public Product mapToProduct(ProductEntity entity) {
+        return Product.builder()
+                .id(entity.getId())
+                .name(entity.getName())
+                .description(entity.getDescription())
+                .shortDescription(entity.getShortDescription())
+                .price(entity.getPrice())
+                .discountPrice(entity.getDiscountPrice())
+                .imageUrl(entity.getImageUrl())
+                .isAvailable(entity.isAvailable())
+                .stock(entity.getStock())
+                .build();
+    }
+
+    public GetProductsByNameRequest toGetProductsByNameRequest(String name) {
+        return GetProductsByNameRequest.builder()
+                .name(name)
+                .build();
+    }
 }
