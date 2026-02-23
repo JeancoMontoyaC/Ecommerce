@@ -10,7 +10,7 @@ public class CreateProductRequest {
     private String description;
     private String shortDescription;
     private Double price;
-    private Double discountPrice;
+    private Double discountPercentage;
     private String imageUrl;
     private Boolean available;
     private Integer stock;

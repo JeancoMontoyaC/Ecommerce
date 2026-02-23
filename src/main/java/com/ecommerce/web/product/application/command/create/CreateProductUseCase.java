@@ -18,7 +18,7 @@ public class CreateProductUseCase {
                 .imageUrl(request.getImageUrl())
                 .available(request.getAvailable())
                 .shortDescription(request.getShortDescription())
-                .discountPrice(request.getDiscountPrice())
+                .discountPercentage(request.getDiscountPercentage())
                 .stock(request.getStock())
                 .build();
 

@@ -28,7 +28,7 @@ public class ProductRepositoryImpl implements ProductRepository {
                 .price(product.getPrice())
                 .available(product.getAvailable())
                 .shortDescription(product.getShortDescription())
-                .discountPrice(product.getDiscountPrice())
+                .discountPercentage(product.getDiscountPercentage())
                 .stock(product.getStock())
                 .imageUrl(product.getImageUrl())
                 .build();
@@ -106,8 +106,8 @@ public class ProductRepositoryImpl implements ProductRepository {
             product.setPrice(productChanges.getPrice());
         }
 
-        if (productChanges.getDiscountPrice() != null) {
-            product.setDiscountPrice(productChanges.getDiscountPrice());
+        if (productChanges.getDiscountPercentage() != null) {
+            product.setDiscountPercentage(productChanges.getDiscountPercentage());
         }
 
         if (productChanges.getImageUrl() != null) {

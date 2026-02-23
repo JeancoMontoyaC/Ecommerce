@@ -24,6 +24,8 @@ public class ProductDto {
     private String imageUrl;
     private Boolean available;
     private String shortDescription;
-    private Double discountPrice;
+    @DecimalMin(value = "1.0", inclusive = false)
+    @DecimalMax(value = "90.0", inclusive = false)
+    private Double discountPercentage;
     private Integer stock;
 }

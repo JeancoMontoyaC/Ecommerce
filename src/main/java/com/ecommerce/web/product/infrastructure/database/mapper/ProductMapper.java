@@ -24,7 +24,7 @@ public class ProductMapper {
                 .imageUrl(productDto.getImageUrl())
                 .available(productDto.getAvailable())
                 .shortDescription(productDto.getShortDescription())
-                .discountPrice(productDto.getDiscountPrice())
+                .discountPercentage(productDto.getDiscountPercentage())
                 .stock(productDto.getStock())
                 .build();
     }
@@ -44,7 +44,7 @@ public class ProductMapper {
                 .imageUrl(product.getImageUrl())
                 .available(product.getAvailable())
                 .shortDescription(product.getShortDescription())
-                .discountPrice(product.getDiscountPrice())
+                .discountPercentage(product.getDiscountPercentage())
                 .stock(product.getStock())
                 .build();
     }
@@ -56,7 +56,7 @@ public class ProductMapper {
                 .description(entity.getDescription())
                 .shortDescription(entity.getShortDescription())
                 .price(entity.getPrice())
-                .discountPrice(entity.getDiscountPrice())
+                .discountPercentage(entity.getDiscountPercentage())
                 .imageUrl(entity.getImageUrl())
                 .available(entity.getAvailable())
                 .stock(entity.getStock())
@@ -70,7 +70,7 @@ public class ProductMapper {
                 .description(productDto.getDescription())
                 .shortDescription(productDto.getShortDescription())
                 .price(productDto.getPrice())
-                .discountPrice(productDto.getDiscountPrice())
+                .discountPercentage(productDto.getDiscountPercentage())
                 .imageUrl(productDto.getImageUrl())
                 .available(productDto.getAvailable())
                 .stock(productDto.getStock())

@@ -30,7 +30,7 @@ public class ProductEntity {
     private Double price;
 
     @Column
-    private Double discountPrice;
+    private Double discountPercentage;
 
     @Column
     private String imageUrl;
