@@ -10,5 +10,6 @@ public interface ProductRepository {
     Optional<Product> findById(Long id);
     List<Product> findAll();
     List<Product> findByName(String name);
+    List<Product> findByMinPrice(Double minPrice);
     Product partialUpdate(Long id, Product productChanges);
 }

@@ -61,6 +61,14 @@ public class ProductRepositoryImpl implements ProductRepository {
     }
 
     @Override
+    public List<Product> findByMinPrice(Double minPrice) {
+        List<ProductEntity> entities = springDataProductRepository.findByPriceGreaterThanEqual(minPrice);
+        return entities.stream()
+                .map(productMapper::mapToProduct)
+                .toList();
+    }
+
+    @Override
     @Transactional
     public Product partialUpdate(Long id, Product productChanges) {
         ProductEntity product = springDataProductRepository.findById(id)

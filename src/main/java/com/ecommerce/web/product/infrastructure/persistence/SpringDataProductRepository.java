@@ -10,4 +10,5 @@ import java.util.Optional;
 @Repository
 public interface SpringDataProductRepository extends JpaRepository<ProductEntity, Long> {
     List<ProductEntity> findByNameContaining(String name);
+    List<ProductEntity> findByPriceGreaterThanEqual(Double minPrice);
 }

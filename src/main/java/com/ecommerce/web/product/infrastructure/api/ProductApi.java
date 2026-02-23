@@ -10,5 +10,6 @@ public interface ProductApi {
     public ResponseEntity<ProductDto> getProductById(Long id);
     public ResponseEntity<List<ProductDto>> getAllProducts();
     public ResponseEntity<ProductDto> updateProduct(Long id, ProductDto productDto);
-     public ResponseEntity<List<ProductDto>> getProductsByName(String name);
+    public ResponseEntity<List<ProductDto>> getProductsByName(String name);
+    public ResponseEntity<List<ProductDto>> getProductsByMinPrice(Double minPrice);
 }

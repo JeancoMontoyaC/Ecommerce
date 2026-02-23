@@ -4,6 +4,7 @@ import com.ecommerce.web.product.application.command.create.CreateProductUseCase
 import com.ecommerce.web.product.application.query.getAll.GetAllProductsUseCase;
 import com.ecommerce.web.product.application.query.getById.GetProductByIdUseCase;
 import com.ecommerce.web.product.application.query.getByName.GetProductsByNameUseCase;
+import com.ecommerce.web.product.application.query.getByMinPrice.GetProductsByMinPriceUseCase;
 import com.ecommerce.web.product.application.query.partialUpdate.UpdateProductUseCase;
 import com.ecommerce.web.product.infrastructure.api.dto.ProductDto;
 import com.ecommerce.web.product.infrastructure.database.mapper.ProductMapper;
@@ -23,6 +24,7 @@ public class ProductController implements ProductApi {
     private final GetProductByIdUseCase getProductByIdUseCase;
     private final GetAllProductsUseCase getAllProductsUseCase;
     private final GetProductsByNameUseCase getProductsByNameUseCase;
+    private final GetProductsByMinPriceUseCase getProductsByMinPriceUseCase;
     private final UpdateProductUseCase updateProductUseCase;
     private final ProductMapper productMapper;
 
@@ -74,6 +76,17 @@ public class ProductController implements ProductApi {
     public ResponseEntity<List<ProductDto>> getProductsByName(@PathVariable String name) {
         var request = productMapper.toGetProductsByNameRequest(name);
         var response = getProductsByNameUseCase.execute(request);
+        var productDtos = response.getProducts().stream()
+                .map(productMapper::mapToProductDto)
+                .toList();
+
+        return ResponseEntity.ok(productDtos);
+    }
+
+    @GetMapping("/filter/min-price/{minPrice}")
+    public ResponseEntity<List<ProductDto>> getProductsByMinPrice(@PathVariable Double minPrice) {
+        var request = productMapper.toGetProductsByMinPriceRequest(minPrice);
+        var response = getProductsByMinPriceUseCase.execute(request);
         var productDtos = response.getProducts().stream()
                 .map(productMapper::mapToProductDto)
                 .toList();

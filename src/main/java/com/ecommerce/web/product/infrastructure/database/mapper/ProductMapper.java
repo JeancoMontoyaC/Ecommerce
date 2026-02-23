@@ -3,6 +3,7 @@ package com.ecommerce.web.product.infrastructure.database.mapper;
 import com.ecommerce.web.product.application.command.create.CreateProductRequest;
 import com.ecommerce.web.product.application.query.getById.GetProductByIdRequest;
 import com.ecommerce.web.product.application.query.getByName.GetProductsByNameRequest;
+import com.ecommerce.web.product.application.query.getByMinPrice.GetProductsByMinPriceRequest;
 import com.ecommerce.web.product.application.query.partialUpdate.UpdateProductRequest;
 import com.ecommerce.web.product.domain.entity.Product;
 import com.ecommerce.web.product.infrastructure.api.dto.ProductDto;
@@ -77,6 +78,12 @@ public class ProductMapper {
     public GetProductsByNameRequest toGetProductsByNameRequest(String name) {
         return GetProductsByNameRequest.builder()
                 .name(name)
+                .build();
+    }
+
+    public GetProductsByMinPriceRequest toGetProductsByMinPriceRequest(Double minPrice) {
+        return GetProductsByMinPriceRequest.builder()
+                .minPrice(minPrice)
                 .build();
     }
 
