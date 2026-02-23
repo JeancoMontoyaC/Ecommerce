@@ -22,7 +22,7 @@ public class ProductDto {
     @DecimalMax(value = "999.99", inclusive = false)
     private Double price;
     private String imageUrl;
-    private boolean isAvailable;
+    private Boolean available;
     private String shortDescription;
     private Double discountPrice;
     private Integer stock;

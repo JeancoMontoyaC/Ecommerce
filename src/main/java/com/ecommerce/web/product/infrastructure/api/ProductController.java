@@ -4,6 +4,7 @@ import com.ecommerce.web.product.application.command.create.CreateProductUseCase
 import com.ecommerce.web.product.application.query.getAll.GetAllProductsUseCase;
 import com.ecommerce.web.product.application.query.getById.GetProductByIdUseCase;
 import com.ecommerce.web.product.application.query.getByName.GetProductsByNameUseCase;
+import com.ecommerce.web.product.application.query.partialUpdate.UpdateProductUseCase;
 import com.ecommerce.web.product.infrastructure.api.dto.ProductDto;
 import com.ecommerce.web.product.infrastructure.database.mapper.ProductMapper;
 import jakarta.validation.Valid;
@@ -22,6 +23,7 @@ public class ProductController implements ProductApi {
     private final GetProductByIdUseCase getProductByIdUseCase;
     private final GetAllProductsUseCase getAllProductsUseCase;
     private final GetProductsByNameUseCase getProductsByNameUseCase;
+    private final UpdateProductUseCase updateProductUseCase;
     private final ProductMapper productMapper;
 
     @PostMapping("/create")
@@ -52,6 +54,20 @@ public class ProductController implements ProductApi {
                 .toList();
 
         return ResponseEntity.ok(productDtos);
+    }
+
+    public ResponseEntity<ProductDto> updateProduct(Long id, ProductDto productDto) {
+        return null;
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<ProductDto> partialUpdate(
+            @PathVariable Long id,
+            @RequestBody ProductDto product) {
+        var request = productMapper.toUpdateProductRequest(id, product);
+        var response = updateProductUseCase.execute(request);
+        var updatedProduct = productMapper.mapToProductDto(response.getProduct());
+        return ResponseEntity.ok(updatedProduct);
     }
 
     @GetMapping("/search/{name}")

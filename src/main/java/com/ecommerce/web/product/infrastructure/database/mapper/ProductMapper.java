@@ -3,7 +3,7 @@ package com.ecommerce.web.product.infrastructure.database.mapper;
 import com.ecommerce.web.product.application.command.create.CreateProductRequest;
 import com.ecommerce.web.product.application.query.getById.GetProductByIdRequest;
 import com.ecommerce.web.product.application.query.getByName.GetProductsByNameRequest;
-import com.ecommerce.web.product.application.query.getByName.GetProductsByNameResponse;
+import com.ecommerce.web.product.application.query.partialUpdate.UpdateProductRequest;
 import com.ecommerce.web.product.domain.entity.Product;
 import com.ecommerce.web.product.infrastructure.api.dto.ProductDto;
 import com.ecommerce.web.product.infrastructure.database.entity.ProductEntity;
@@ -19,7 +19,7 @@ public class ProductMapper {
                 .description(productDto.getDescription())
                 .price(productDto.getPrice())
                 .imageUrl(productDto.getImageUrl())
-                .isAvailable(productDto.isAvailable())
+                .available(productDto.getAvailable())
                 .shortDescription(productDto.getShortDescription())
                 .discountPrice(productDto.getDiscountPrice())
                 .stock(productDto.getStock())
@@ -39,7 +39,7 @@ public class ProductMapper {
                 .description(product.getDescription())
                 .price(product.getPrice())
                 .imageUrl(product.getImageUrl())
-                .isAvailable(product.isAvailable())
+                .available(product.getAvailable())
                 .shortDescription(product.getShortDescription())
                 .discountPrice(product.getDiscountPrice())
                 .stock(product.getStock())
@@ -55,8 +55,22 @@ public class ProductMapper {
                 .price(entity.getPrice())
                 .discountPrice(entity.getDiscountPrice())
                 .imageUrl(entity.getImageUrl())
-                .isAvailable(entity.isAvailable())
+                .available(entity.getAvailable())
                 .stock(entity.getStock())
+                .build();
+    }
+
+    public Product mapToProduct(ProductDto productDto) {
+        return Product.builder()
+                .id(productDto.getId())
+                .name(productDto.getName())
+                .description(productDto.getDescription())
+                .shortDescription(productDto.getShortDescription())
+                .price(productDto.getPrice())
+                .discountPrice(productDto.getDiscountPrice())
+                .imageUrl(productDto.getImageUrl())
+                .available(productDto.getAvailable())
+                .stock(productDto.getStock())
                 .build();
     }
 
@@ -65,4 +79,13 @@ public class ProductMapper {
                 .name(name)
                 .build();
     }
+
+    public UpdateProductRequest toUpdateProductRequest(Long id, ProductDto product) {
+        return UpdateProductRequest
+                .builder().
+                id(id)
+                .product(mapToProduct(product))
+                .build();
+    }
+
 }

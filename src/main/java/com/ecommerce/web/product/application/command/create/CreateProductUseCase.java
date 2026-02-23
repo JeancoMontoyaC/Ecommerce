@@ -16,7 +16,7 @@ public class CreateProductUseCase {
                 .description(request.getDescription())
                 .price(request.getPrice())
                 .imageUrl(request.getImageUrl())
-                .isAvailable(request.isAvailable())
+                .available(request.getAvailable())
                 .shortDescription(request.getShortDescription())
                 .discountPrice(request.getDiscountPrice())
                 .stock(request.getStock())

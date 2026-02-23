@@ -36,7 +36,7 @@ public class ProductEntity {
     private String imageUrl;
 
     @Column(nullable = false)
-    private boolean isAvailable;
+    private Boolean available;
 
     @Column
     private Integer stock;

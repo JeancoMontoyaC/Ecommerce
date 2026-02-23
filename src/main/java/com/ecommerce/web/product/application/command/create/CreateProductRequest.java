@@ -12,6 +12,6 @@ public class CreateProductRequest {
     private Double price;
     private Double discountPrice;
     private String imageUrl;
-    private boolean isAvailable;
+    private Boolean available;
     private Integer stock;
 }

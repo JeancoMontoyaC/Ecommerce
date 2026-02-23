@@ -10,4 +10,5 @@ public interface ProductRepository {
     Optional<Product> findById(Long id);
     List<Product> findAll();
     List<Product> findByName(String name);
+    Product partialUpdate(Long id, Product productChanges);
 }

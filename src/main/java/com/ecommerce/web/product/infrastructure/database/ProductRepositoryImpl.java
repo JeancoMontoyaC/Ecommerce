@@ -5,6 +5,7 @@ import com.ecommerce.web.product.domain.port.ProductRepository;
 import com.ecommerce.web.product.infrastructure.database.entity.ProductEntity;
 import com.ecommerce.web.product.infrastructure.database.mapper.ProductMapper;
 import com.ecommerce.web.product.infrastructure.persistence.SpringDataProductRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -25,10 +26,11 @@ public class ProductRepositoryImpl implements ProductRepository {
                 .name(product.getName())
                 .description(product.getDescription())
                 .price(product.getPrice())
-                .isAvailable(product.isAvailable())
+                .available(product.getAvailable())
                 .shortDescription(product.getShortDescription())
                 .discountPrice(product.getDiscountPrice())
                 .stock(product.getStock())
+                .imageUrl(product.getImageUrl())
                 .build();
 
         springDataProductRepository.save(entity);
@@ -56,5 +58,47 @@ public class ProductRepositoryImpl implements ProductRepository {
         return entities.stream()
                 .map(productMapper::mapToProduct)
                 .toList();
+    }
+
+    @Override
+    @Transactional
+    public Product partialUpdate(Long id, Product productChanges) {
+        ProductEntity product = springDataProductRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Product not found"));
+
+        if (productChanges.getName() != null) {
+            product.setName(productChanges.getName());
+        }
+
+        if (productChanges.getDescription() != null) {
+            product.setDescription(productChanges.getDescription());
+        }
+
+        if (productChanges.getShortDescription() != null) {
+            product.setShortDescription(productChanges.getShortDescription());
+        }
+
+        if (productChanges.getPrice() != null) {
+            product.setPrice(productChanges.getPrice());
+        }
+
+        if (productChanges.getDiscountPrice() != null) {
+            product.setDiscountPrice(productChanges.getDiscountPrice());
+        }
+
+        if (productChanges.getImageUrl() != null) {
+            product.setImageUrl(productChanges.getImageUrl());
+        }
+
+        if (productChanges.getStock() != null) {
+            product.setStock(productChanges.getStock());
+        }
+
+        if (productChanges.getAvailable() != null) {
+            product.setAvailable(productChanges.getAvailable());
+        }
+
+        return productMapper.mapToProduct(product);
+
     }
 }
