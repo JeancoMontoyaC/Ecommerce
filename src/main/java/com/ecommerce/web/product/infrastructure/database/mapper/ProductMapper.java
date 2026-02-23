@@ -4,6 +4,8 @@ import com.ecommerce.web.product.application.command.create.CreateProductRequest
 import com.ecommerce.web.product.application.query.getById.GetProductByIdRequest;
 import com.ecommerce.web.product.application.query.getByName.GetProductsByNameRequest;
 import com.ecommerce.web.product.application.query.getByMinPrice.GetProductsByMinPriceRequest;
+import com.ecommerce.web.product.application.query.getByMaxPrice.GetProductsByMaxPriceRequest;
+import com.ecommerce.web.product.application.query.getByPriceRange.GetProductsByPriceRangeRequest;
 import com.ecommerce.web.product.application.query.partialUpdate.UpdateProductRequest;
 import com.ecommerce.web.product.domain.entity.Product;
 import com.ecommerce.web.product.infrastructure.api.dto.ProductDto;
@@ -25,13 +27,13 @@ public class ProductMapper {
                 .discountPrice(productDto.getDiscountPrice())
                 .stock(productDto.getStock())
                 .build();
-    };
+    }
 
     public GetProductByIdRequest toGetProductByIdRequest(Long id){
         return GetProductByIdRequest.builder()
                 .id(id)
                 .build();
-    };
+    }
 
     public ProductDto mapToProductDto(Product product){
         return ProductDto.builder()
@@ -45,7 +47,7 @@ public class ProductMapper {
                 .discountPrice(product.getDiscountPrice())
                 .stock(product.getStock())
                 .build();
-    };
+    }
 
     public Product mapToProduct(ProductEntity entity) {
         return Product.builder()
@@ -84,6 +86,19 @@ public class ProductMapper {
     public GetProductsByMinPriceRequest toGetProductsByMinPriceRequest(Double minPrice) {
         return GetProductsByMinPriceRequest.builder()
                 .minPrice(minPrice)
+                .build();
+    }
+
+    public GetProductsByMaxPriceRequest toGetProductsByMaxPriceRequest(Double maxPrice) {
+        return GetProductsByMaxPriceRequest.builder()
+                .maxPrice(maxPrice)
+                .build();
+    }
+
+    public GetProductsByPriceRangeRequest toGetProductsByPriceRangeRequest(Double minPrice, Double maxPrice) {
+        return GetProductsByPriceRangeRequest.builder()
+                .minPrice(minPrice)
+                .maxPrice(maxPrice)
                 .build();
     }
 

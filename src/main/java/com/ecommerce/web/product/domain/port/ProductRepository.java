@@ -11,5 +11,7 @@ public interface ProductRepository {
     List<Product> findAll();
     List<Product> findByName(String name);
     List<Product> findByMinPrice(Double minPrice);
+    List<Product> findByMaxPrice(Double maxPrice);
+    List<Product> findByPriceRange(Double minPrice, Double maxPrice);
     Product partialUpdate(Long id, Product productChanges);
 }
