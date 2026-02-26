@@ -11,6 +11,8 @@ import com.ecommerce.web.product.application.query.getByCategory.GetProductsByCa
 import com.ecommerce.web.product.application.query.partialUpdate.UpdateProductUseCase;
 import com.ecommerce.web.product.infrastructure.api.dto.ProductDto;
 import com.ecommerce.web.product.infrastructure.database.mapper.ProductMapper;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,6 +25,7 @@ import java.util.List;
 @RequestMapping("/api/v1/products")
 @AllArgsConstructor
 @Slf4j
+@Tag(name = "Product API", description = "Endpoints for managing products in the e-commerce application")
 public class ProductController implements ProductApi {
 
     private final CreateProductUseCase createProductUseCase;
@@ -36,6 +39,7 @@ public class ProductController implements ProductApi {
     private final UpdateProductUseCase updateProductUseCase;
     private final ProductMapper productMapper;
 
+    @Operation(summary = "Create a new product", description = "Creates a new product in the e-commerce application")
     @PostMapping("/create")
     public ResponseEntity<Void> createProduct(
              @RequestBody @Valid ProductDto productDto
@@ -49,6 +53,7 @@ public class ProductController implements ProductApi {
         return  ResponseEntity.accepted().build();
     }
 
+    @Operation(summary = "Get product by ID", description = "Retrieves a product by its unique identifier")
     @GetMapping("/{id}")
     public ResponseEntity<ProductDto> getProductById(@PathVariable Long id) {
         log.info("Fetching product with id: {}", id);
@@ -65,6 +70,7 @@ public class ProductController implements ProductApi {
         }
     }
 
+    @Operation(summary = "Get all products", description = "Retrieves a list of all products in the e-commerce application")
     @GetMapping("/all")
     public ResponseEntity<List<ProductDto>> getAllProducts() {
         log.info("Fetching all products");
@@ -78,6 +84,7 @@ public class ProductController implements ProductApi {
         return ResponseEntity.ok(productDtos);
     }
 
+    @Operation(summary = "Partially update a product", description = "Updates specific fields of an existing product")
     @PatchMapping("/{id}")
     public ResponseEntity<ProductDto> partialUpdate(
             @PathVariable Long id,
@@ -92,6 +99,7 @@ public class ProductController implements ProductApi {
         return ResponseEntity.ok(updatedProduct);
     }
 
+    @Operation(summary = "Search products by name", description = "Retrieves a list of products that match the specified name")
     @GetMapping("/search/{name}")
     public ResponseEntity<List<ProductDto>> getProductsByName(@PathVariable String name) {
         log.info("Searching products by name: {}", name);
@@ -106,6 +114,7 @@ public class ProductController implements ProductApi {
         return ResponseEntity.ok(productDtos);
     }
 
+    @Operation(summary = "Filter products by minimum price", description = "Retrieves a list of products with a price greater than or equal to the specified minimum price")
     @GetMapping("/filter/min-price/{minPrice}")
     public ResponseEntity<List<ProductDto>> getProductsByMinPrice(@PathVariable Double minPrice) {
         log.info("Fetching products with minimum price: {}", minPrice);
@@ -120,6 +129,7 @@ public class ProductController implements ProductApi {
         return ResponseEntity.ok(productDtos);
     }
 
+    @Operation(summary = "Filter products by maximum price", description = "Retrieves a list of products with a price less than or equal to the specified maximum price")
     @GetMapping("/filter/max-price/{maxPrice}")
     public ResponseEntity<List<ProductDto>> getProductsByMaxPrice(@PathVariable Double maxPrice) {
         log.info("Fetching products with maximum price: {}", maxPrice);
@@ -134,6 +144,7 @@ public class ProductController implements ProductApi {
         return ResponseEntity.ok(productDtos);
     }
 
+    @Operation(summary = "Filter products by price range", description = "Retrieves a list of products with a price within the specified range")
     @GetMapping("/filter/price-range/{minPrice}/{maxPrice}")
     public ResponseEntity<List<ProductDto>> getProductsByPriceRange(@PathVariable Double minPrice, @PathVariable Double maxPrice) {
         log.info("Fetching products with price range: {} - {}", minPrice, maxPrice);
@@ -148,6 +159,7 @@ public class ProductController implements ProductApi {
         return ResponseEntity.ok(productDtos);
     }
 
+    @Operation(summary = "Filter products by category", description = "Retrieves a list of products that belong to the specified category")
     @GetMapping("/filter/category/{category}")
     public ResponseEntity<List<ProductDto>> getProductsByCategory(@PathVariable String category) {
         log.info("Fetching products by category: {}", category);

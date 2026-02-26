@@ -1,4 +1,4 @@
-package com.ecommerce.web.integrationTests;
+package com.ecommerce.web.product.integrationTests;
 
 import com.ecommerce.web.product.infrastructure.persistence.SpringDataProductRepository;
 import org.junit.jupiter.api.BeforeEach;
