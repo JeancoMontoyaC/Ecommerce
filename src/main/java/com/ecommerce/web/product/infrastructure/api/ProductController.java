@@ -78,10 +78,6 @@ public class ProductController implements ProductApi {
         return ResponseEntity.ok(productDtos);
     }
 
-    public ResponseEntity<ProductDto> updateProduct(Long id, ProductDto productDto) {
-        return null;
-    }
-
     @PatchMapping("/{id}")
     public ResponseEntity<ProductDto> partialUpdate(
             @PathVariable Long id,
