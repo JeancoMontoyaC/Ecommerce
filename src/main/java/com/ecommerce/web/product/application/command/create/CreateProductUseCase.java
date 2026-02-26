@@ -3,6 +3,7 @@ package com.ecommerce.web.product.application.command.create;
 import com.ecommerce.web.product.domain.entity.Product;
 import com.ecommerce.web.product.domain.port.ProductRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 @AllArgsConstructor
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Component;
 public class CreateProductUseCase {
     private final ProductRepository productRepository;
 
+    @Async
     public void execute(CreateProductRequest request) {
         Product product = Product.builder()
                 .name(request.getName())
